@@ -1,5 +1,7 @@
 # ConMon
 
+![ConMan Logo](src/main/resources/static/logo.png)
+
 ConMon is a Java 21 / Spring Boot 3 application that monitors Linux TCP connection lifecycle events by parsing `/proc/net/tcp` and `/proc/net/tcp6` once per second. It does not require application changes, packet capture, eBPF, Netlink, agents, or external monitoring software.
 
 The monitor compares snapshots of `ESTABLISHED` sockets and emits:
