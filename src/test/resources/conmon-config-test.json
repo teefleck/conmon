@@ -1,0 +1,30 @@
+{
+  "monitor": {
+    "enabled": false,
+    "scanIntervalMillis": 2500,
+    "eventRetention": 250,
+    "eventPersistenceEnabled": false,
+    "procNetTcpPath": "/tmp/conmon-fixed-tcp",
+    "procNetTcp6Path": "/tmp/conmon-fixed-tcp6"
+  },
+  "services": [
+    {
+      "id": "00000000-0000-0000-0000-000000000101",
+      "serviceName": "fixed-api",
+      "description": "Loaded from a fixed JSON file",
+      "port": 9443,
+      "tags": ["fixed", "api"],
+      "enabled": true
+    }
+  ],
+  "clients": [
+    {
+      "id": "00000000-0000-0000-0000-000000000201",
+      "clientName": "fixed-client",
+      "description": "Loaded from a fixed JSON file",
+      "ipAddress": "203.0.113.10",
+      "tags": ["fixed", "client"],
+      "enabled": true
+    }
+  ]
+}

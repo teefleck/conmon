@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/conmon
+    username: conmon
+    password: conmon
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+conmon:
+  monitor:
+    enabled: true
+    scan-interval-millis: 1000
+    event-retention: 10000
+    event-persistence-enabled: false
+    proc-net-tcp-path: /proc/net/tcp
+    proc-net-tcp6-path: /proc/net/tcp6

@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: conmon
+  datasource:
+    url: jdbc:h2:mem:conmon;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: false
+
+conmon:
+  configuration:
+    file:
+    replace-existing: true
+    read-only: false
+  monitor:
+    enabled: true
+    scan-interval-millis: 1000
+    event-retention: 10000
+    event-persistence-enabled: false
+    proc-net-tcp-path: /proc/net/tcp
+    proc-net-tcp6-path: /proc/net/tcp6
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

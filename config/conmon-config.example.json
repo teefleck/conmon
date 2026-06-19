@@ -1,0 +1,28 @@
+{
+  "monitor": {
+    "enabled": true,
+    "scanIntervalMillis": 1000,
+    "eventRetention": 10000,
+    "eventPersistenceEnabled": false,
+    "procNetTcpPath": "/proc/net/tcp",
+    "procNetTcp6Path": "/proc/net/tcp6"
+  },
+  "services": [
+    {
+      "serviceName": "orders-api",
+      "description": "Orders API listener",
+      "port": 8080,
+      "tags": ["prod", "orders"],
+      "enabled": true
+    }
+  ],
+  "clients": [
+    {
+      "clientName": "payment-worker",
+      "description": "Payment worker host",
+      "ipAddress": "10.10.0.42",
+      "tags": ["prod", "payments"],
+      "enabled": true
+    }
+  ]
+}

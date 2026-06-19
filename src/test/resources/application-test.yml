@@ -1,0 +1,18 @@
+conmon:
+  monitor:
+    enabled: false
+    scan-interval-millis: 1000
+    event-retention: 1000
+    event-persistence-enabled: false
+    proc-net-tcp-path: /tmp/conmon-test-tcp
+    proc-net-tcp6-path: /tmp/conmon-test-tcp6
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:conmon-test;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop

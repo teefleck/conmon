@@ -1,0 +1,32 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: conmon
+      POSTGRES_USER: conmon
+      POSTGRES_PASSWORD: conmon
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  conmon:
+    build: .
+    depends_on:
+      - postgres
+    network_mode: host
+    environment:
+      SPRING_PROFILES_ACTIVE: postgres
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/conmon
+      SPRING_DATASOURCE_USERNAME: conmon
+      SPRING_DATASOURCE_PASSWORD: conmon
+      CONMON_CONFIGURATION_FILE: ""
+      CONMON_CONFIGURATION_READ_ONLY: "false"
+      CONMON_MONITOR_PROC_NET_TCP_PATH: /proc/net/tcp
+      CONMON_MONITOR_PROC_NET_TCP6_PATH: /proc/net/tcp6
+    volumes:
+      - /proc/net/tcp:/proc/net/tcp:ro
+      - /proc/net/tcp6:/proc/net/tcp6:ro
+
+volumes:
+  postgres-data:
