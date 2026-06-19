@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ConMon Status</title>
+    <link rel="stylesheet" th:href="@{/app.css}" />
+</head>
+<body data-page="status" class="statusPage">
+<header class="appHeader">
+    <img src="/logo.png" alt="ConMon logo" class="appLogo" />
+    <div>
+        <h1>ConMon Connection Status</h1>
+        <p>Live monitor data for active connections, configured services, clients and event totals.</p>
+    </div>
+</header>
+
+<nav class="pageNav">
+    <a href="/index.html">Home</a>
+    <a class="active" href="/status.html">Status</a>
+    <a href="/connections.html">Connections</a>
+    <a href="/events.html">Events</a>
+    <a href="/services.html">Services</a>
+    <a href="/clients.html">Clients</a>
+    <a href="/config.html">Configuration</a>
+</nav>
+
+<main class="layout">
+    <section class="actions">
+        <button id="refreshBtn">Refresh</button>
+        <span id="statusText" aria-live="polite"></span>
+    </section>
+
+    <section class="statusGrid">
+        <div class="statusCard">
+            <h2>Last Scan</h2>
+            <div id="lastScan">Loading...</div>
+        </div>
+        <div class="statusCard">
+            <h2>Active Connections</h2>
+            <div id="activeConnections">Loading...</div>
+        </div>
+        <div class="statusCard">
+            <h2>Configured Services</h2>
+            <div id="configuredServices">Loading...</div>
+        </div>
+        <div class="statusCard">
+            <h2>Configured Clients</h2>
+            <div id="configuredClients">Loading...</div>
+        </div>
+        <div class="statusCard">
+            <h2>Last Scan Duration</h2>
+            <div id="lastDuration">Loading...</div>
+        </div>
+        <div class="statusCard">
+            <h2>Last Error</h2>
+            <div id="lastError">None</div>
+        </div>
+    </section>
+
+    <section class="summaryCard">
+        <h2>Event Summary</h2>
+        <div class="summaryGrid">
+            <div>
+                <span>Connection Events</span>
+                <strong id="connectionEvents">Loading...</strong>
+            </div>
+            <div>
+                <span>Connected Events</span>
+                <strong id="connectedEvents">Loading...</strong>
+            </div>
+            <div>
+                <span>Disconnected Events</span>
+                <strong id="disconnectedEvents">Loading...</strong>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script th:src="@{/app.js}"></script>
+</body>
+</html>

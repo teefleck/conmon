@@ -1,5 +1,6 @@
 package com.example.conmon.controller;
 
+import com.example.conmon.dto.ClientStatusResponse;
 import com.example.conmon.dto.ConnectionResponse;
 import com.example.conmon.dto.EventResponse;
 import com.example.conmon.service.ConnectionQueryService;
@@ -39,5 +40,10 @@ public class ConnectionController {
                                       @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Optional<Instant> from,
                                       @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Optional<Instant> to) {
         return queryService.events(serviceId, clientId, from, to);
+    }
+
+    @GetMapping("/api/client-status")
+    public List<ClientStatusResponse> clientStatus(@RequestParam(required = false) String clientIp) {
+        return queryService.clientStatus(Optional.ofNullable(clientIp));
     }
 }

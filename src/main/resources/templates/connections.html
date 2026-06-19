@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ConMon Connections</title>
+    <link rel="stylesheet" th:href="@{/app.css}" />
+</head>
+<body data-page="connections" class="statusPage">
+<header class="appHeader">
+    <img src="/logo.png" alt="ConMon logo" class="appLogo" />
+    <div>
+        <h1>Active Connections</h1>
+        <p>Live connection state for the monitored services and clients.</p>
+    </div>
+</header>
+
+<nav class="pageNav">
+    <a href="/index.html">Home</a>
+    <a href="/status.html">Status</a>
+    <a class="active" href="/connections.html">Connections</a>
+    <a href="/events.html">Events</a>
+    <a href="/services.html">Services</a>
+    <a href="/clients.html">Clients</a>
+    <a href="/config.html">Configuration</a>
+</nav>
+
+<main class="layout">
+    <section class="actions">
+        <button id="refreshBtn">Refresh</button>
+        <span id="statusText" aria-live="polite"></span>
+    </section>
+
+    <section class="tableFilterBar">
+        <input id="connectionSearch" class="tableFilterInput" type="text" placeholder="Search service, client, local or remote address" />
+    </section>
+
+    <section class="tableWrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Service</th>
+                    <th>Client</th>
+                    <th>Local</th>
+                    <th>Remote</th>
+                    <th>Connected At</th>
+                    <th>Last Seen</th>
+                    <th>Tags</th>
+                </tr>
+            </thead>
+            <tbody id="connectionRows"></tbody>
+        </table>
+    </section>
+</main>
+
+<script th:src="@{/app.js}"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ConMon Clients</title>
+    <link rel="stylesheet" th:href="@{/app.css}" />
+</head>
+<body data-page="clients" class="configPage">
+<header class="appHeader">
+    <img src="/logo.png" alt="ConMon logo" class="appLogo" />
+    <div>
+        <h1>Client Management</h1>
+        <p>Manage known clients and IP addresses used by monitored connections.</p>
+    </div>
+</header>
+
+<nav class="pageNav">
+    <a href="/index.html">Home</a>
+    <a href="/status.html">Status</a>
+    <a href="/connections.html">Connections</a>
+    <a href="/events.html">Events</a>
+    <a href="/services.html">Services</a>
+    <a class="active" href="/clients.html">Clients</a>
+    <a href="/config.html">Configuration</a>
+</nav>
+
+<main class="layout">
+    <section class="actions">
+        <button id="refreshBtn">Refresh</button>
+        <button id="newClientBtn">Add Client</button>
+        <span id="statusText" aria-live="polite"></span>
+    </section>
+
+    <section class="tableFilterBar">
+        <input id="clientSearch" class="tableFilterInput" type="text" placeholder="Search client name, address or tags" />
+    </section>
+
+    <section class="tableWrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>IP Address</th>
+                    <th>Tags</th>
+                    <th>Enabled</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="clientRows"></tbody>
+        </table>
+    </section>
+
+    <section id="clientFormContainer" class="editFormSection hidden">
+        <h2 id="clientFormTitle">Add Client</h2>
+        <form id="clientForm" novalidate>
+            <input type="hidden" id="clientId" name="clientId" />
+            <div class="formGrid">
+                <label for="clientName">Name</label>
+                <input id="clientName" name="clientName" required />
+
+                <label for="clientDescription">Description</label>
+                <input id="clientDescription" name="description" />
+
+                <label for="clientIpAddress">IP Address</label>
+                <input id="clientIpAddress" name="ipAddress" required />
+
+                <label for="clientTags">Tags (comma-separated)</label>
+                <input id="clientTags" name="tags" placeholder="tag1, tag2" />
+
+                <label for="clientEnabled">Enabled</label>
+                <label class="checkLabel"><input id="clientEnabled" name="enabled" type="checkbox" checked /> Enabled</label>
+            </div>
+            <div class="formActions">
+                <button type="submit">Save Client</button>
+                <button type="button" id="cancelClientBtn" class="secondaryBtn">Cancel</button>
+            </div>
+        </form>
+    </section>
+</main>
+
+<script th:src="@{/app.js}"></script>
+</body>
+</html>

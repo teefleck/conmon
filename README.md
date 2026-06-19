@@ -27,6 +27,12 @@ Swagger UI is available at:
 http://localhost:8080/swagger-ui.html
 ```
 
+A built-in management UI is available at:
+
+```text
+http://localhost:8080/
+```
+
 Actuator endpoints include health and metrics:
 
 ```text
@@ -41,6 +47,7 @@ http://localhost:8080/actuator/metrics
 - `GET|POST /api/clients`
 - `GET|PUT|DELETE /api/clients/{id}`
 - `GET /api/configuration`
+- `POST /api/configuration?replaceExisting=true`
 - `GET /api/connections?serviceId={uuid}&clientId={uuid}&tags=prod&tags=db`
 - `GET /api/events?serviceId={uuid}&clientId={uuid}&from=2026-01-01T00:00:00Z&to=2026-01-02T00:00:00Z`
 - `GET /api/monitor/status`

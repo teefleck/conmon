@@ -58,6 +58,14 @@ public class ConfigurationDocumentService {
 
     @Transactional
     public void importConfiguration(ConfigurationDocument document, boolean replaceExisting) {
+        importConfiguration(document, replaceExisting, false);
+    }
+
+    @Transactional
+    public void importConfiguration(ConfigurationDocument document, boolean replaceExisting, boolean allowReadOnlyOverride) {
+        if (configurationFileProperties.readOnly() && !allowReadOnlyOverride) {
+            throw new ReadOnlyConfigurationException("Configuration is read-only because fixed file mode is enabled");
+        }
         if (replaceExisting) {
             clientRepository.deleteAll();
             serviceRepository.deleteAll();

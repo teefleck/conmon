@@ -1,4 +1,5 @@
-package com.example.conmon.controller;
+
+        package com.example.conmon.controller;
 
 import com.example.conmon.dto.ClientRequest;
 import com.example.conmon.dto.ServiceRequest;
@@ -23,6 +24,9 @@ import java.time.Instant;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+
+import com.jayway.jsonpath.JsonPath;
+import org.springframework.test.web.servlet.MvcResult;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -163,10 +167,52 @@ class ApiIntegrationTest {
                 .andExpect(jsonPath("$.clients[0].clientName").value("config-client"));
     }
 
-    private ActiveConnection activeConnection() {
-        ConnectionKey key = new ConnectionKey(UUID.randomUUID(), UUID.randomUUID(),
-                "127.0.0.1", 8080, "10.0.0.42", 5555);
-        Instant now = Instant.parse("2026-01-01T00:00:00Z");
-        return new ActiveConnection(key, "api", "worker", Set.of("prod"), now, now);
+    @Test
+    void clientStatusReportsConnectedAndDisconnectedClients() throws Exception {
+        MvcResult serviceResult = mockMvc.perform(post("/api/services")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(new ServiceRequest("api", null, 8080, Set.of(), true))))
+                .andExpect(status().isCreated())
+                .andReturn();
+        UUID serviceId = extractId(serviceResult, "$.id");
+
+        MvcResult clientResult = mockMvc.perform(post("/api/clients")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(new ClientRequest("worker", null, "10.0.0.42", Set.of(), true))))
+                .andExpect(status().isCreated())
+                .andReturn();
+        UUID clientId = extractId(clientResult, "$.id");
+
+        ConnectionKey key = new ConnectionKey(serviceId, clientId, "127.0.0.1", 8080, "10.0.0.42", 5555);
+        ActiveConnection active = new ActiveConnection(key, "api", "worker", Set.of(), Instant.parse("2026-01-01T00:00:00Z"), Instant.parse("2026-01-01T00:00:00Z"));
+        registry.reconcile(Map.of(key, active));
+        eventStore.append(ConnectionEvent.of(ConnectionEventType.CONNECTED, active, Instant.parse("2026-01-01T00:00:00Z")));
+
+        mockMvc.perform(get("/api/client-status"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].clientIp").value("10.0.0.42"))
+                .andExpect(jsonPath("$[0].status").value("CONNECTED"))
+                .andExpect(jsonPath("$[0].lastConnected").exists());
+
+        mockMvc.perform(get("/api/client-status")
+                        .param("clientIp", "10.0.0.42"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].clientIp").value("10.0.0.42"));
     }
+
+    private UUID extractId(MvcResult result, String jsonPath) throws Exception {
+        String json = result.getResponse().getContentAsString();
+        String id = JsonPath.read(json, jsonPath);
+        return UUID.fromString(id);
+    }
+
+        private ActiveConnection activeConnection() {
+                ConnectionKey key = new ConnectionKey(UUID.randomUUID(), UUID.randomUUID(),
+                                "127.0.0.1", 8080, "10.0.0.42", 5555);
+                Instant now = Instant.parse("2026-01-01T00:00:00Z");
+                return new ActiveConnection(key, "api", "worker", Set.of("prod"), now, now);
+        }
+
 }

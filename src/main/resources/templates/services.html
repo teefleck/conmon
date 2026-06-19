@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ConMon Services</title>
+    <link rel="stylesheet" th:href="@{/app.css}" />
+</head>
+<body data-page="services" class="configPage">
+<header class="appHeader">
+    <img src="/logo.png" alt="ConMon logo" class="appLogo" />
+    <div>
+        <h1>Service Management</h1>
+        <p>Manage monitored services, ports and metadata used by active connections.</p>
+    </div>
+</header>
+
+<nav class="pageNav">
+    <a href="/index.html">Home</a>
+    <a href="/status.html">Status</a>
+    <a href="/connections.html">Connections</a>
+    <a href="/events.html">Events</a>
+    <a class="active" href="/services.html">Services</a>
+    <a href="/clients.html">Clients</a>
+    <a href="/config.html">Configuration</a>
+</nav>
+
+<main class="layout">
+    <section class="actions">
+        <button id="refreshBtn">Refresh</button>
+        <button id="newServiceBtn">Add Service</button>
+        <span id="statusText" aria-live="polite"></span>
+    </section>
+
+    <section class="tableFilterBar">
+        <input id="serviceSearch" class="tableFilterInput" type="text" placeholder="Search service name, description or tags" />
+    </section>
+
+    <section class="tableWrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Port</th>
+                    <th>Tags</th>
+                    <th>Enabled</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="serviceRows"></tbody>
+        </table>
+    </section>
+
+    <section id="serviceFormContainer" class="editFormSection hidden">
+        <h2 id="serviceFormTitle">Add Service</h2>
+        <form id="serviceForm" novalidate>
+            <input type="hidden" id="serviceId" name="serviceId" />
+            <div class="formGrid">
+                <label for="serviceName">Name</label>
+                <input id="serviceName" name="serviceName" required />
+
+                <label for="serviceDescription">Description</label>
+                <input id="serviceDescription" name="description" />
+
+                <label for="servicePort">Port</label>
+                <input id="servicePort" name="port" type="number" min="1" max="65535" required />
+
+                <label for="serviceTags">Tags (comma-separated)</label>
+                <input id="serviceTags" name="tags" placeholder="tag1, tag2" />
+
+                <label for="serviceEnabled">Enabled</label>
+                <label class="checkLabel"><input id="serviceEnabled" name="enabled" type="checkbox" checked /> Enabled</label>
+            </div>
+            <div class="formActions">
+                <button type="submit">Save Service</button>
+                <button type="button" id="cancelServiceBtn" class="secondaryBtn">Cancel</button>
+            </div>
+        </form>
+    </section>
+</main>
+
+<script th:src="@{/app.js}"></script>
+</body>
+</html>

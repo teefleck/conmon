@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ConMon Events</title>
+    <link rel="stylesheet" th:href="@{/app.css}" />
+</head>
+<body data-page="events" class="statusPage">
+<header class="appHeader">
+    <img src="/logo.png" alt="ConMon logo" class="appLogo" />
+    <div>
+        <h1>Event Timeline</h1>
+        <p>Recent connection and client events reported by the monitor.</p>
+    </div>
+</header>
+
+<nav class="pageNav">
+    <a href="/index.html">Home</a>
+    <a href="/status.html">Status</a>
+    <a href="/connections.html">Connections</a>
+    <a class="active" href="/events.html">Events</a>
+    <a href="/services.html">Services</a>
+    <a href="/clients.html">Clients</a>
+    <a href="/config.html">Configuration</a>
+</nav>
+
+<main class="layout">
+    <section class="actions">
+        <button id="refreshBtn">Refresh</button>
+        <span id="statusText" aria-live="polite"></span>
+    </section>
+
+    <section class="tableWrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Type</th>
+                    <th>Service</th>
+                    <th>Client</th>
+                    <th>Local</th>
+                    <th>Remote</th>
+                    <th>Tags</th>
+                </tr>
+            </thead>
+            <tbody id="eventRows"></tbody>
+        </table>
+    </section>
+</main>
+
+<script th:src="@{/app.js}"></script>
+</body>
+</html>

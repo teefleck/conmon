@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ConMon Management</title>
+  <link rel="stylesheet" th:href="@{/app.css}" />
+</head>
+<body class="landingPage">
+  <main class="layout">
+    <section class="landingContainer">
+      <div>
+        <h1>ConMon</h1>
+        <p>Monitor TCP connection lifecycle, manage clients and services, and review configuration.</p>
+      </div>
+
+      <div class="navigationButtons">
+        <a class="navButton" href="/status.html">
+          <span>📊</span>
+          <strong>Status</strong>
+        </a>
+        <a class="navButton" href="/connections.html">
+          <span>🔌</span>
+          <strong>Connections</strong>
+        </a>
+        <a class="navButton" href="/services.html">
+          <span>🖥️</span>
+          <strong>Services</strong>
+        </a>
+        <a class="navButton" href="/clients.html">
+          <span>👥</span>
+          <strong>Clients</strong>
+        </a>
+        <a class="navButton" href="/events.html">
+          <span>📝</span>
+          <strong>Events</strong>
+        </a>
+        <a class="navButton" href="/config.html">
+          <span>⚙️</span>
+          <strong>Configuration</strong>
+        </a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

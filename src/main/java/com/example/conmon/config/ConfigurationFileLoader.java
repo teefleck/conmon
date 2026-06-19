@@ -40,7 +40,7 @@ public class ConfigurationFileLoader implements ApplicationRunner {
             throw new IllegalStateException("Configuration file does not exist: " + path);
         }
         ConfigurationDocument document = objectMapper.readValue(path.toFile(), ConfigurationDocument.class);
-        configurationDocumentService.importConfiguration(document, properties.replaceExisting());
+        configurationDocumentService.importConfiguration(document, properties.replaceExisting(), true);
         log.info("Loaded ConMon configuration from {}", path);
     }
 }

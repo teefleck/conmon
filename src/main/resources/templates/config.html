@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ConMon Configuration</title>
+    <link rel="stylesheet" th:href="@{/app.css}" />
+</head>
+<body data-page="config" class="configPage">
+<header class="appHeader">
+    <img src="/logo.png" alt="ConMon logo" class="appLogo" />
+    <div>
+        <h1>Configuration</h1>
+        <p>Download the current configuration or upload a new JSON document.</p>
+    </div>
+</header>
+
+<nav class="pageNav">
+    <a href="/index.html">Home</a>
+    <a href="/status.html">Status</a>
+    <a href="/connections.html">Connections</a>
+    <a href="/events.html">Events</a>
+    <a href="/services.html">Services</a>
+    <a href="/clients.html">Clients</a>
+    <a class="active" href="/config.html">Configuration</a>
+</nav>
+
+<main class="layout">
+    <section class="actions">
+        <button id="refreshBtn">Reload</button>
+        <button id="downloadConfigBtn">Download JSON</button>
+        <button id="uploadConfigBtn">Upload JSON</button>
+        <span id="statusText" aria-live="polite"></span>
+    </section>
+
+    <section class="tableWrap">
+        <h2>Current Configuration</h2>
+        <pre id="configurationJson" style="white-space: pre-wrap; word-break: break-word; background: #f6f7fb; padding: 1rem; border-radius: 10px; min-height: 220px; margin: 0;"></pre>
+    </section>
+
+    <section class="editFormSection">
+        <h2>Upload New Configuration</h2>
+        <textarea id="configurationFile" placeholder="Paste configuration JSON here"></textarea>
+        <label class="checkLabel"><input type="checkbox" id="replaceExisting" /> Replace existing configuration</label>
+    </section>
+</main>
+
+<script th:src="@{/app.js}"></script>
+</body>
+</html>
